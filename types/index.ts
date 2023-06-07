@@ -1,5 +1,5 @@
 export type Operation = 'deposito' 
   | 'retiro' 
-  | 'cambio de divisas' 
+  | 'divisas' 
   | 'inversiones' 
   | 'actividad'

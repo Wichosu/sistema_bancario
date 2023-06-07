@@ -13,7 +13,7 @@ async function getDB() {
   }
 }
 
-const operations : Operation[] = ['deposito', 'retiro', 'cambio de divisas', 'inversiones', 'actividad']
+const operations : Operation[] = ['deposito', 'retiro', 'divisas', 'inversiones', 'actividad']
 
 export default async function Home() {
   return (
