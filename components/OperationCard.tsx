@@ -8,7 +8,7 @@ interface Props {
 export default function OperationCard({ operation } : Props) {
   return (
     <Link 
-      href={`/${operation}`}
+      href={`/operaciones/${operation}`}
       className="px-4 py-12 rounded bg-neutral-200 text-neutral-800 text-center uppercase
       cursor-pointer shadow-sm"
     >
