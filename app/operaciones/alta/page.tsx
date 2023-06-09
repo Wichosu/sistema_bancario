@@ -2,29 +2,52 @@ import Footer from "@/components/Footer";
 import Input from "@/components/Input";
 import Subtitle from "@/components/Subtitle";
 import { redirect } from "next/navigation";
+import clientPromise from "@/lib/mongodb";
+import { Account } from "@/types";
 
-async function Demo(data: FormData) {
+async function createAcount(data: FormData) {
   "use server"
 
-  const first = data.get('first')?.valueOf()
+  //get form data
+  const amount = data.get('cantidad')?.valueOf()
+  const name = data.get('nombre')?.valueOf()
+  const first_surname = data.get('apellido_p')?.valueOf()
+  const second_surname = data.get('apellido_m')?.valueOf()
 
-  if(typeof first !== "string" || first.length === 0) {
-    throw new Error("Invalid Fisrt")
+  //validate
+  if(typeof amount !== "string" || typeof name !== "string" || typeof first_surname !== "string" || typeof second_surname !== "string"){
+    throw new Error("Failed to validate")
   }
 
-  console.log(JSON.stringify(first))
+  //object account
+  const newAccount : Account = {
+    numero_cuenta: Math.random().toString(),
+    fondos: +amount,
+    inversiones: 0,
+    nombre: name,
+    apellido_paterno: first_surname,
+    apellido_materno: second_surname
+  }
+
+  const client = await clientPromise
+
+  client.db("Banco").collection("Cuenta").insertOne(newAccount)
+
   redirect("/operaciones/alta")
 }
 
 export default function Page() {
   return (
     <>
-      <form action={Demo} method="post">
-        <label htmlFor="first">First name:</label>
-        <input type="text" id="first" name="first" />
-        <label htmlFor="last">Last name:</label>
-        <input type="text" id="last" name="last" />
-        <button type="submit">Submit</button>
+      <Subtitle subtitle="Alta de Cuenta" />
+      <form action={createAcount} method="post" className="grid gap-8">
+        <div className="flex gap-8">
+          <Input label="Nombre" name="nombre" />
+          <Input label="Apellido Paterno" name="apellido_p" />
+          <Input label="Apellido Materno" name="apellido_m" />
+        </div>
+        <Input label="Cantidad" name="cantidad" />
+        <Footer />
       </form>
     </>
   )
