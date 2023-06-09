@@ -13,6 +13,7 @@ export default function Input({ label, type = 'text', name} : Props) {
         name={name} 
         type={type} 
         className="border border-neutral-500 w-fit rounded-sm"
+        required
       />
     </div>
   )

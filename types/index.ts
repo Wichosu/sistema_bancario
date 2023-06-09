@@ -3,3 +3,8 @@ export type Operation = 'deposito'
   | 'divisas' 
   | 'inversiones' 
   | 'actividad'
+  | 'alta'
+
+export interface Account {
+  
+}
