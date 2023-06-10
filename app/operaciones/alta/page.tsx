@@ -4,6 +4,7 @@ import Subtitle from "@/components/Subtitle";
 import { redirect } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
 import { Account } from "@/types";
+import { randomAccount } from "@/lib/randomAccount";
 
 async function createAcount(data: FormData) {
   "use server"
@@ -21,7 +22,7 @@ async function createAcount(data: FormData) {
 
   //object account
   const newAccount : Account = {
-    numero_cuenta: Math.random().toString(),
+    numero_cuenta: randomAccount(),
     fondos: +amount,
     inversiones: 0,
     nombre: name,
