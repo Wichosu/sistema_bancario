@@ -10,11 +10,9 @@ async function handleForm(data : FormData) {
   const account = data.get('num_cuenta')?.valueOf()
   const amount = data.get('cantidad')?.valueOf()
   
-  
   if(typeof account !== "string" || typeof amount !== "string") {
     throw new Error("Wrong type")
   }
-  
   
   const prev = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account })
 

@@ -1,9 +1,12 @@
-export type Operation = 'deposito' 
+export type Operation = 
+  |'deposito' 
   | 'retiro' 
   | 'divisas' 
   | 'inversiones' 
   | 'actividad'
   | 'alta'
+  | 'venta'
+  | 'compra'
 
 export interface Account {
   numero_cuenta: string
@@ -27,5 +30,4 @@ export interface MovementCoinExchange {
   cantidadEntrada: string,
   monedaSalida: string,
   cantidadSalida: string,
-  id_sucursal: string
 }
