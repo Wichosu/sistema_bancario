@@ -13,3 +13,19 @@ export interface Account {
   apellido_paterno: string
   apellido_materno: string
 }
+
+export interface Movement {
+  tipo: string,
+  saldo: string,
+  fecha: Date,
+  id_sucursal: string,
+  id_numero_cuenta: string
+}
+
+export interface MovementCoinExchange {
+  monedaEntrada: string,
+  cantidadEntrada: string,
+  monedaSalida: string,
+  cantidadSalida: string,
+  id_sucursal: string
+}
