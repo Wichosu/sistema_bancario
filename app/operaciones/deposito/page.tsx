@@ -3,6 +3,7 @@ import Input from "@/components/Input";
 import Subtitle from "@/components/Subtitle";
 import clientPromise from "@/lib/mongodb";
 import { redirect } from "next/navigation";
+import { Movement } from "@/types";
 
 async function handleForm(data : FormData) {
   "use server"
@@ -14,12 +15,27 @@ async function handleForm(data : FormData) {
     throw new Error("Wrong type")
   }
   
-  const prev = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account })
+  try {
+    const prev = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account })
+    
+    client.db("Banco").collection("Cuenta").updateOne(
+      { numero_cuenta: account},
+      { $set: { fondos: (+amount + prev?.fondos) }}
+    )
 
-  client.db("Banco").collection("Cuenta").updateOne(
-    { numero_cuenta: account},
-    { $set: { fondos: (+amount + prev?.fondos) }}
-  )
+    const date = new Date()
+
+    const movement:Movement = {
+      numero_cuenta: account,
+      tipo: "Deposito",
+      saldo: amount,
+      fecha: date.toUTCString()
+    }
+
+    client.db("Banco").collection("Movimiento").insertOne(movement)
+  } catch(e) {
+    console.log(e)
+  }
 
   redirect('/')
 }

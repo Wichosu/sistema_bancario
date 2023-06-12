@@ -18,11 +18,10 @@ export interface Account {
 }
 
 export interface Movement {
+  numero_cuenta: string,
   tipo: string,
   saldo: string,
-  fecha: Date,
-  id_sucursal: string,
-  id_numero_cuenta: string
+  fecha: string,
 }
 
 export interface MovementCoinExchange {
@@ -30,4 +29,5 @@ export interface MovementCoinExchange {
   cantidadEntrada: string,
   monedaSalida: string,
   cantidadSalida: string,
+  fecha: string
 }

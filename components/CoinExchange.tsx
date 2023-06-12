@@ -30,12 +30,14 @@ export default function CoinExchange({ createMovement } : Props ) {
     }
 
     const coinName = coinIn.current.value.split(',')[1]
+    const date = new Date()
     
     const movement: MovementCoinExchange = {
       monedaEntrada: coinName,
       cantidadEntrada: amount.current.value,
       monedaSalida: "MXN",
       cantidadSalida: exchange.toFixed(2).toString(),
+      fecha: date.toUTCString()
     }
 
     createMovement(movement)

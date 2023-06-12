@@ -4,6 +4,7 @@ import Balance from "@/components/Balance"
 import Footer from "@/components/Footer"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
+import { Movement } from "@/types"
 
 async function handleForm(data : FormData) {
   "use server"
@@ -15,12 +16,26 @@ async function handleForm(data : FormData) {
     throw new Error("Invalid type")
   }
 
-  const prev = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account })
+  try{
 
-  client.db("Banco").collection("Cuenta").updateOne(
-    { numero_cuenta: account },
-    { $set: { inversiones: (prev?.inversiones + +amount) }}
-  )
+    const prev = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account })
+    
+    client.db("Banco").collection("Cuenta").updateOne(
+      { numero_cuenta: account },
+      { $set: { inversiones: (prev?.inversiones + +amount) }}
+    )
+
+    const date = new Date()
+
+    const movement:Movement = {
+      numero_cuenta: account,
+      tipo: "Inversion",
+      saldo: amount,
+      fecha: date.toUTCString()
+    }
+  } catch(e) {
+    console.log(e)
+  }
 
   redirect('/')
 }
