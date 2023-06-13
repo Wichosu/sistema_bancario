@@ -41,7 +41,7 @@ export default async function Page(){
       </div>
       <Movement type="Tipo de operacion" account="Numero de cuenta" amount="Cantidad" date="Fecha" />
       <div className="flex mt-8 mb-14">
-        <div className="grow grid gap-4">
+        <div className="grow flex flex-col gap-4">
           <h3 className="mb-4 ">Movimiento de cuentas</h3>
           {
             movements?.map((movement:MovementType, key:any) => (
@@ -55,7 +55,7 @@ export default async function Page(){
             ))
           }
         </div>
-        <div className="grow">
+        <div className="grow flex flex-col gap-4">
           <h3 className="mb-4">Movimiento de divisas</h3>
           {
             coinExchangeMovements?.map((movement:MovementCoinExchangeType, key:any) => (

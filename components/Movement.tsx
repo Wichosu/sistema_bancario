@@ -16,7 +16,7 @@ interface MovementCoinExchangeProps {
 export function Movement({ type, amount, date, account} : MovementProps) {
   return (
     <div className="flex justify-between max-w-sm border border-neutral-300 px-8 py-4 rounded
-      shadow"
+      shadow h-fit"
     >
       <div className="grid gap-4">
         <p className="capitalize">{ type }</p>
