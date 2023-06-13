@@ -1,8 +1,8 @@
-import Movement from "@/components/Movement";
+import { Movement, MovementCoinExchange } from "@/components/Movement";
 import Subtitle from "@/components/Subtitle";
 import Link from "next/link";
 import clientPromise from "@/lib/mongodb";
-import { Movement as MovementType } from "@/types";
+import { MovementCoinExchange as MovementCoinExchangeType, Movement as MovementType } from "@/types";
 
 async function getMovements() {
   try {
@@ -14,8 +14,19 @@ async function getMovements() {
   }
 }
 
+async function getCoinExchangeMovements() {
+  try {
+    const client = await clientPromise
+    const movements = client.db("Banco").collection("Movimiento_Divisa").find()
+    return await movements.toArray()
+  } catch(e) {
+    console.log(e)
+  }
+}
+
 export default async function Page(){
   const movements:any = await getMovements()
+  const coinExchangeMovements:any = await getCoinExchangeMovements()
 
   return(
     <>
@@ -46,6 +57,18 @@ export default async function Page(){
         </div>
         <div className="grow">
           <h3 className="mb-4">Movimiento de divisas</h3>
+          {
+            coinExchangeMovements?.map((movement:MovementCoinExchangeType, key:any) => (
+              <MovementCoinExchange
+                key={key}
+                coinIn={movement.monedaEntrada}
+                coinInAmount={movement.cantidadEntrada}
+                coinOut={movement.monedaSalida}
+                coinOutAmount={movement.cantidadSalida}
+                date={movement.fecha}
+              />
+            ))
+          }
         </div>
       </div>
     </>
