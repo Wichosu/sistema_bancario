@@ -37,7 +37,7 @@ export default function CoinExchange({ createMovement } : Props ) {
       cantidadEntrada: amount.current.value,
       monedaSalida: "MXN",
       cantidadSalida: exchange.toFixed(2).toString(),
-      fecha: date.toUTCString()
+      fecha: date.toLocaleString()
     }
 
     createMovement(movement)

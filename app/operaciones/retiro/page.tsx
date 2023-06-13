@@ -30,8 +30,8 @@ async function handleForm(data : FormData) {
     const movement:Movement = {
       numero_cuenta: account,
       tipo: "Retiro",
-      saldo: amount,
-      fecha: date.toUTCString()
+      cantidad: amount,
+      fecha: date.toLocaleString()
     }
 
     client.db("Banco").collection("Movimiento").insertOne(movement)

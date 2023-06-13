@@ -20,7 +20,7 @@ export interface Account {
 export interface Movement {
   numero_cuenta: string,
   tipo: string,
-  saldo: string,
+  cantidad: string,
   fecha: string,
 }
 
