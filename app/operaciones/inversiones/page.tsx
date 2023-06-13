@@ -50,7 +50,7 @@ export default function Page(){
         <Input label="Num. Cuenta" name="num_cuenta" />
         <div className="flex gap-8">
           <Input label="Cantidad" name="cantidad" type="number" />
-          <Balance balance={0} />
+          <Balance balance={'0'} />
         </div>
         <Footer />
       </form>

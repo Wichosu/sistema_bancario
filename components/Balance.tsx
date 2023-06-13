@@ -1,5 +1,5 @@
 interface Props {
-  balance: number
+  balance: string
 }
 
 export default function Balance({ balance } : Props) {

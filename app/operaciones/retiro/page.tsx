@@ -1,10 +1,10 @@
 import Subtitle from "@/components/Subtitle"
 import Input from "@/components/Input"
 import Footer from "@/components/Footer"
-import Balance from "@/components/Balance"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
 import { Movement } from "@/types"
+import SearchAccount from "@/components/SearchAccount"
 
 async function handleForm(data : FormData) {
   "use server"
@@ -42,15 +42,26 @@ async function handleForm(data : FormData) {
   redirect('/')
 }
 
-export default function Page(){
+async function getBalance(account_number:string) {
+  "use server"
+  try {
+    const client = await clientPromise
+    const account = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account_number})
+    return account?.fondos.toString()
+  } catch(e) {
+    console.log(e)
+    return '0'
+  }
+}
+
+export default async function Page(){
   return(
     <>
       <Subtitle subtitle="Retiro" />
       <form action={handleForm} method="POST" className="flex flex-col gap-8">
-        <Input label="Num. Cuenta" name="num_cuenta" />
+        <SearchAccount getBalance={getBalance} />
         <div className="flex gap-8">
           <Input label="Cantidad" name="cantidad" type="number" />
-          <Balance balance={0} />
         </div>
         <Footer />
       </form>
