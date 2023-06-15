@@ -5,19 +5,22 @@ import Footer from "@/components/Footer"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
 import { Movement } from "@/types"
+import SearchAccount from "@/components/SearchAccount"
 
 async function handleForm(data : FormData) {
   "use server"
   const client = await clientPromise
-  const account = data.get('num_cuenta')?.valueOf()
+  const first = data.get('first')?.valueOf()
+  const second = data.get('second')?.valueOf()
   const amount = data.get('cantidad')?.valueOf()
 
-  if(typeof account !== "string" || typeof amount !== "string") {
+  if(typeof first !== "string" || typeof amount !== "string" || typeof second !== "string") {
     throw new Error("Invalid type")
   }
 
   try{
 
+    const account = `2222 4545 80${first} ${second}`
     const prev = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account })
     
     client.db("Banco").collection("Cuenta").updateOne(
@@ -42,16 +45,25 @@ async function handleForm(data : FormData) {
   redirect('/')
 }
 
+async function getBalance(account_number:string) {
+  "use server"
+  try {
+    const client = await clientPromise
+    const account = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account_number})
+    return account?.fondos.toString()
+  } catch(e) {
+    console.log(e)
+    return '0'
+  }
+}
+
 export default function Page(){
   return(
     <>
       <Subtitle subtitle="Inversiones" />
       <form action={handleForm} method="POST" className="flex flex-col gap-8">
-        <Input label="Num. Cuenta" name="num_cuenta" />
-        <div className="flex gap-8">
-          <Input label="Cantidad" name="cantidad" type="number" />
-          <Balance balance={'0'} />
-        </div>
+        <SearchAccount getBalance={getBalance} />
+        <Input label="Cantidad" name="cantidad" type="number" />
         <Footer />
       </form>
     </>

@@ -9,32 +9,36 @@ import SearchAccount from "@/components/SearchAccount"
 async function handleForm(data : FormData) {
   "use server"
   const client = await clientPromise
-  const account = data.get('num_cuenta')?.valueOf()
+  const first = data.get('first')?.valueOf()
+  const second = data.get('second')?.valueOf()
   const amount = data.get('cantidad')?.valueOf()
 
-  if(typeof account !== "string" || typeof amount !== "string") {
+  if(typeof first !== "string" || typeof amount !== "string" || typeof second !== "string") {
     throw new Error("Invalid type")
   }
 
   try {
 
+    const account = `2222 4545 80${first} ${second}`
     const prev = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account })
     
-    client.db("Banco").collection("Cuenta").updateOne(
-      { numero_cuenta: account },
-      { $set: { fondos: (prev?.fondos - +amount )}}
-    )
+    if(prev?.fondos >= +amount){
+      client.db("Banco").collection("Cuenta").updateOne(
+        { numero_cuenta: account },
+        { $set: { fondos: (prev?.fondos - +amount )}}
+      )
 
-    const date = new Date()
+      const date = new Date()
 
-    const movement:Movement = {
-      numero_cuenta: account,
-      tipo: "Retiro",
-      cantidad: amount,
-      fecha: date.toLocaleString()
+      const movement:Movement = {
+        numero_cuenta: account,
+        tipo: "Retiro",
+        cantidad: amount,
+        fecha: date.toLocaleString()
+      }
+
+      client.db("Banco").collection("Movimiento").insertOne(movement)
     }
-
-    client.db("Banco").collection("Movimiento").insertOne(movement)
   } catch(e) {
     console.log(e)
   }
@@ -60,9 +64,7 @@ export default async function Page(){
       <Subtitle subtitle="Retiro" />
       <form action={handleForm} method="POST" className="flex flex-col gap-8">
         <SearchAccount getBalance={getBalance} />
-        <div className="flex gap-8">
-          <Input label="Cantidad" name="cantidad" type="number" />
-        </div>
+        <Input label="Cantidad" name="cantidad" type="number" />
         <Footer />
       </form>
     </>
