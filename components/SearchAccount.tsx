@@ -1,5 +1,6 @@
 "use client"
 import { useRef, useState } from "react"
+import Input from "./Input"
 
 interface Props {
   getBalance: (account_number: string) => Promise<any>
@@ -8,9 +9,9 @@ interface Props {
 export default function SearchAccount({ getBalance } : Props) {
   const firstInput = useRef<HTMLInputElement>(null)
   const secondInput = useRef<HTMLInputElement>(null)
-  const [balance, setBalance] = useState<Promise<any>>()
+  const [account, setAccount] = useState<any>()
 
-  function handleInput() {
+  async function handleInput() {
     const first = firstInput.current?.value
     const second = secondInput.current?.value
 
@@ -19,10 +20,10 @@ export default function SearchAccount({ getBalance } : Props) {
     }
 
     if(first.length === 2 && second.length === 4) {
-      const account = `2222 4545 80${first} ${second}`
-      setBalance(getBalance(account))
+      const account_number = `2222 4545 80${first} ${second}`
+      setAccount(await getBalance(account_number))
     } else {
-      setBalance(() => undefined)
+      setAccount(() => undefined)
     }
   }
 
@@ -53,9 +54,14 @@ export default function SearchAccount({ getBalance } : Props) {
           ref={secondInput}
         />
       </div>
+      <div className="flex gap-8">
+        <Input label="Nombre" value={account?.nombre} disabled={true} />
+        <Input label="Apellido Paterno" value={account?.apellido_paterno} disabled={true} />
+        <Input label="Apellido Materno" value={account?.apellido_materno} disabled={true} />
+      </div>
       <div className="flex flex-col gap-2">
         <p>Fondos</p>
-        <p>${ balance }</p>
+        <p>${ account?.fondos }</p>
       </div>
     </div>
   )

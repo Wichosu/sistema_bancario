@@ -6,7 +6,7 @@ interface Props {
   disabled?: boolean
 }
 
-export default function Input({ label, type = 'text', name, value, disabled} : Props) {
+export default function Input({ label, type = 'text', name, value = '', disabled} : Props) {
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={name} >{ label }</label>
@@ -19,7 +19,7 @@ export default function Input({ label, type = 'text', name, value, disabled} : P
             type={type} 
             value={value}
             disabled
-            className="border border-neutral-500 w-fit rounded-sm"
+            className="border border-neutral-500 bg-neutral-200 text-neutral-700 w-fit rounded-sm"
             required
           />
         :
