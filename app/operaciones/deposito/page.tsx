@@ -15,7 +15,7 @@ async function handleForm(data : FormData) {
   const amount = data.get('cantidad')?.valueOf()
   
   if(typeof first !== "string" || typeof amount !== "string" || typeof second !== "string") {
-    throw new Error("Wrong type")
+    throw new Error('Invalid data type. Expected "string"')
   }
   
   try {

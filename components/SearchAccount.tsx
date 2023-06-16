@@ -15,11 +15,7 @@ export default function SearchAccount({ getBalance } : Props) {
     const first = firstInput.current?.value
     const second = secondInput.current?.value
 
-    if(first === undefined || second === undefined){
-      throw new Error("account is undefined")
-    }
-
-    if(first.length === 2 && second.length === 4) {
+    if(first?.length === 2 && second?.length === 4) {
       const account_number = `2222 4545 80${first} ${second}`
       setAccount(await getBalance(account_number))
     } else {
