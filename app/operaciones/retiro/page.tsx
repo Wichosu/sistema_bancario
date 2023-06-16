@@ -5,6 +5,7 @@ import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
 import { Movement } from "@/types"
 import SearchAccount from "@/components/SearchAccount"
+import { getBalance } from "@/server/getBalance"
 
 async function handleForm(data : FormData) {
   "use server"
@@ -46,19 +47,7 @@ async function handleForm(data : FormData) {
   redirect('/')
 }
 
-async function getBalance(account_number:string) {
-  "use server"
-  try {
-    const client = await clientPromise
-    const account = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account_number})
-    return account?.fondos.toString()
-  } catch(e) {
-    console.log(e)
-    return '0'
-  }
-}
-
-export default async function Page(){
+export default function Page(){
   return(
     <>
       <Subtitle subtitle="Retiro" />
