@@ -47,7 +47,7 @@ export default function Page() {
           <Input label="Apellido Paterno" name="apellido_p" />
           <Input label="Apellido Materno" name="apellido_m" />
         </div>
-        <Input label="Cantidad" name="cantidad" />
+        <Input label="Cantidad" name="cantidad" type="number" />
         <Footer />
       </form>
     </>

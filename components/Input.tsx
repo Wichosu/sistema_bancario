@@ -27,6 +27,7 @@ export default function Input({ label, type = 'text', name, value = '', disabled
             id={name} 
             name={name} 
             type={type} 
+            step={0.01}
             className="border border-neutral-500 w-fit rounded-sm"
             required
           />
