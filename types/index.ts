@@ -5,6 +5,7 @@ export type Operation =
   | 'inversiones' 
   | 'actividad'
   | 'alta'
+  | 'baja'
   | 'venta'
   | 'compra'
 

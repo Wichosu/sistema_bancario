@@ -19,7 +19,8 @@ const operations : Operation[] = [
   'divisas',
   'inversiones',
   'actividad',
-  'alta'
+  'alta',
+  'baja'
 ]
 
 export default async function Home() {
