@@ -1,3 +1,4 @@
+"use client"
 import { Movement, MovementCoinExchange } from "@/components/Movement";
 import Subtitle from "@/components/Subtitle";
 import Link from "next/link";
@@ -6,10 +7,23 @@ import {
   Movement as MovementType 
 } from "@/types";
 import { getMovements, getCoinExchangeMovements } from "@/server/getMovements";
+import { useEffect, useState } from "react";
 
-export default async function Page(){
-  const movements:any = await getMovements()
-  const coinExchangeMovements:any = await getCoinExchangeMovements()
+export default function Page(){
+  const [movements, setMovements] = useState<any>()
+  const [coinExchangeMovements, setCoinExchangeMovements] = useState<any>();
+  
+  useEffect(() => {
+
+    async function fetchMovements() {
+      setMovements(await getMovements())
+      setCoinExchangeMovements(await getCoinExchangeMovements())
+    }
+
+    fetchMovements()
+      .catch(console.error);
+
+  }, [])
 
   return(
     <>
