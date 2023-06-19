@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
-        <title>Create Next App</title>
+        <title>Sistema Bancario</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body className={`${inter.className} max-w-5xl mx-auto`}>
