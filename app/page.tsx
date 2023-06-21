@@ -1,6 +1,7 @@
 import Subtitle from "@/components/Subtitle"
 import Input from "@/components/Input"
 import clientPromise from "@/lib/mongodb"
+import { redirect } from "next/navigation"
 
 async function login(data: FormData) {
   "use server"
@@ -17,12 +18,14 @@ async function login(data: FormData) {
 
     console.log(window)
 
-    if(window?.password === password) {
+    if(window?.password !== password) {
+      return
     }
 
   } catch(e) {
     console.error(e)
   }
+  redirect('/menu')
 }
 
 export default function Page() {
