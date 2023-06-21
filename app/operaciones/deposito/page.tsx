@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { Movement } from "@/types";
 import SearchAccount from "@/components/SearchAccount";
 import { getBalance } from "@/server/getBalance";
+import { isAuth } from "@/lib/isAuth";
 
 async function handleForm(data : FormData) {
   "use server"
@@ -46,6 +47,8 @@ async function handleForm(data : FormData) {
 }
 
 export default function Page() {
+  isAuth()
+
   return(
     <>
       <Subtitle subtitle="Deposito" />

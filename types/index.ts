@@ -8,6 +8,7 @@ export type Operation =
   | 'baja'
   | 'venta'
   | 'compra'
+  | 'salir'
 
 export enum CoinExchangeModes {
   Purchase = "purchase",

@@ -2,6 +2,7 @@ import Subtitle from "@/components/Subtitle";
 import clientPromise from "@/lib/mongodb";
 import { MovementCoinExchange, CoinExchangeModes } from "@/types";
 import CoinExchange from "@/components/CoinExchange";
+import { isAuth } from "@/lib/isAuth";
 
 async function createMovement(movement: MovementCoinExchange) {
   "use server"
@@ -14,6 +15,8 @@ async function createMovement(movement: MovementCoinExchange) {
 }
 
 export default function Page(){
+  isAuth()
+
   return(
     <>
       <Subtitle subtitle="Cambio de Divisas" />

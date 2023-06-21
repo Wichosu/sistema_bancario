@@ -1,17 +1,6 @@
-import Head from 'next/head'
-import clientPromise from '../../lib/mongodb'
 import { Operation } from '@/types'
 import OperationCard from '@/components/OperationCard'
-
-async function getDB() {
-  try{
-    const client = await clientPromise
-    return true
-  } catch (e) {
-    console.error(e)
-    return false
-  }
-}
+import { isAuth } from '@/lib/isAuth'
 
 const operations : Operation[] = [
   'deposito',
@@ -20,10 +9,13 @@ const operations : Operation[] = [
   'inversiones',
   'actividad',
   'alta',
-  'baja'
+  'baja',
+  'salir'
 ]
 
 export default async function Home() {
+  isAuth()
+
   return (
     <div className='grid grid-cols-4 gap-8'>
       {

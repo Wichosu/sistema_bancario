@@ -1,4 +1,5 @@
 import OperationCard from "@/components/OperationCard"
+import { isAuth } from "@/lib/isAuth"
 import { Operation } from "@/types"
 
 const operations : Operation[] = [
@@ -7,6 +8,8 @@ const operations : Operation[] = [
 ]
 
 export default async function Home() {
+  isAuth()
+
   return (
     <div className='grid grid-cols-4 gap-8'>
       {

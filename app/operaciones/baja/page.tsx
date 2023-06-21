@@ -5,6 +5,7 @@ import { getBalance } from "@/server/getBalance"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
 import { Movement } from "@/types"
+import { isAuth } from "@/lib/isAuth"
 
 async function dropAccount(data: FormData) {
   "use server"
@@ -43,6 +44,8 @@ async function dropAccount(data: FormData) {
 }
 
 export default function Page() {
+  isAuth()
+
   return (
     <>
       <Subtitle subtitle="Alta de Cuenta" />

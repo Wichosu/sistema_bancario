@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
 import { Account } from "@/types";
 import { randomAccountNumber } from "@/lib/randomAccount";
+import { isAuth } from "@/lib/isAuth";
 
 async function createAcount(data: FormData) {
   "use server"
@@ -38,6 +39,8 @@ async function createAcount(data: FormData) {
 }
 
 export default function Page() {
+  isAuth()
+
   return (
     <>
       <Subtitle subtitle="Alta de Cuenta" />
