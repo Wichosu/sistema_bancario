@@ -16,12 +16,14 @@ export enum CoinExchangeModes {
 }
 
 export interface Account {
-  numero_cuenta: string
-  fondos: number
-  inversiones: number
-  nombre: string
-  apellido_paterno: string
-  apellido_materno: string
+  numero_cuenta: string,
+  fondos: number,
+  inversiones: number,
+  nombre: string,
+  apellido_paterno: string,
+  apellido_materno: string,
+  fecha_apertura: string,
+  fecha_clausura: string
 }
 
 export interface Movement {
@@ -29,6 +31,7 @@ export interface Movement {
   tipo: string,
   cantidad: string,
   fecha: string,
+  ventanilla: string
 }
 
 export interface MovementCoinExchange {
@@ -36,5 +39,6 @@ export interface MovementCoinExchange {
   cantidadEntrada: string,
   monedaSalida: string,
   cantidadSalida: string,
-  fecha: string
+  fecha: string,
+  ventanilla: string
 }

@@ -17,8 +17,6 @@ async function login(data: FormData) {
     const client = await clientPromise
     const window = await client.db("Banco").collection("Ventanilla").findOne({ clave: number });
 
-    console.log(window)
-
     if(window?.password !== password) {
       return
     }
@@ -35,7 +33,7 @@ async function login(data: FormData) {
 
   cookies().set({
     name: 'auth',
-    value: 'true',
+    value: number,
     expires: expireDate
   })
 
