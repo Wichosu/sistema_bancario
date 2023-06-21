@@ -7,6 +7,7 @@ import { Movement } from "@/types"
 import SearchAccount from "@/components/SearchAccount"
 import { getBalance } from "@/server/getBalance"
 import { isAuth } from "@/lib/isAuth"
+import { getWindowNumber } from "@/lib/getWindowNumber"
 
 async function handleForm(data : FormData) {
   "use server"
@@ -36,7 +37,8 @@ async function handleForm(data : FormData) {
         numero_cuenta: account,
         tipo: "Retiro",
         cantidad: amount,
-        fecha: date.toLocaleString()
+        fecha: date.toLocaleString(),
+        ventanilla: getWindowNumber()
       }
 
       client.db("Banco").collection("Movimiento").insertOne(movement)
