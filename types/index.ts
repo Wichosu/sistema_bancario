@@ -9,6 +9,11 @@ export type Operation =
   | 'venta'
   | 'compra'
 
+export enum CoinExchangeModes {
+  Purchase = "purchase",
+  Sell = "sell"
+}
+
 export interface Account {
   numero_cuenta: string
   fondos: number

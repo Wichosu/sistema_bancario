@@ -1,6 +1,6 @@
 import Subtitle from "@/components/Subtitle";
 import clientPromise from "@/lib/mongodb";
-import { MovementCoinExchange } from "@/types";
+import { MovementCoinExchange, CoinExchangeModes } from "@/types";
 import CoinExchange from "@/components/CoinExchange";
 
 async function createMovement(movement: MovementCoinExchange) {
@@ -17,7 +17,7 @@ export default function Page(){
   return(
     <>
       <Subtitle subtitle="Cambio de Divisas" />
-      <CoinExchange createMovement={createMovement} />
+      <CoinExchange createMovement={createMovement} mode={CoinExchangeModes.Sell} />
     </>
   )
 }

@@ -2,40 +2,55 @@
 import Footer from "./Footer"
 import { useState, useRef } from "react"
 import { coins } from "@/lib/coins"
-import { MovementCoinExchange } from "@/types"
+import { MovementCoinExchange, CoinExchangeModes } from "@/types"
 import { redirect } from "next/navigation"
 
 interface Props {
   createMovement: (movement: MovementCoinExchange) => void
+  mode: CoinExchangeModes
 }
 
-export default function CoinExchange({ createMovement } : Props ) {
+export default function CoinExchange({ createMovement, mode } : Props ) {
   const amount = useRef<HTMLInputElement>(null)
-  const coinIn = useRef<HTMLSelectElement>(null)
+  const coin = useRef<HTMLSelectElement>(null)
   const [exchange, setExchange] = useState<number>(0)
+  const isPurchase = mode === CoinExchangeModes.Purchase
 
   const handleExchange = () => {
-    if(coinIn.current?.value === undefined || amount.current?.value === undefined) {
+    if(coin.current?.value === undefined || amount.current?.value === undefined) {
       throw new Error('A value is undefined')
     }
 
-    const coinValue = coinIn.current.value.split(',')[0]
+    //get value of coin, since coin is an array containing [value, coinName]
+    const coinValue = coin.current.value.split(',')[0]
 
-    setExchange(+amount.current?.value / +coinValue)
+    const operation = isPurchase
+    ? +amount.current?.value * +coinValue
+    : +amount.current?.value / +coinValue
+
+    setExchange(operation)
   }
 
   const validate = () => {
-    if(coinIn.current?.value === undefined || amount.current?.value === undefined) {
+    if(coin.current?.value === undefined || amount.current?.value === undefined) {
       throw new Error('A value is undefined')
     }
 
-    const coinName = coinIn.current.value.split(',')[1]
+    //get name of coin, since coin is an array [value, coinName]
+    const coinIn = isPurchase
+    ? "MXN"
+    : coin.current.value.split(',')[1]
+
+    const coinOut = isPurchase
+    ? coin.current.value.split(',')[1]
+    : "MXN"
+
     const date = new Date()
     
     const movement: MovementCoinExchange = {
-      monedaEntrada: coinName,
+      monedaEntrada: coinIn,
       cantidadEntrada: amount.current.value,
-      monedaSalida: "MXN",
+      monedaSalida: coinOut,
       cantidadSalida: exchange.toFixed(2).toString(),
       fecha: date.toLocaleString()
     }
@@ -65,22 +80,38 @@ export default function CoinExchange({ createMovement } : Props ) {
             pattern="\d"
           />
         </div>
-        <select className="px-8 py-2 h-fit self-end" ref={coinIn} onChange={handleExchange}>
-          {
-            coins.map((coin, key) => (
-              <option key={key} value={[coin.value.toString(), coin.name]}>{ coin.name }</option>
-            ))
-          }
-        </select>
+        {
+          isPurchase
+          ?
+            <p className="px-8 py-2 h-fit self-end">Peso Mexicano</p>
+          :
+            <select className="px-8 py-2 h-fit self-end" ref={coin} onChange={handleExchange}>
+              {
+                coins.map((coin, key) => (
+                  <option key={key} value={[coin.value.toString(), coin.name]}>{ coin.name }</option>
+                ))
+              }
+            </select>
+        }
       </div>
       <div className="flex max-w-xl justify-between">
         <div className="grid gap-4">
           <p>Regresar</p>
           <p>$ { exchange.toFixed(2) }</p>
         </div>
-        <select className="px-8 py-2 h-fit self-end">
-          <option>Peso Mexicano</option>
-        </select>
+        {
+          isPurchase
+          ?
+            <select className="px-8 py-2 h-fit self-end" ref={coin} onChange={handleExchange}>
+              {
+                coins.map((coin, key) => (
+                  <option key={key} value={[coin.value.toString(), coin.name]}>{ coin.name }</option>
+                ))
+              }
+            </select>
+          :
+            <p className="px-8 py-2 h-fit self-end">Peso Mexicano</p>
+        }
       </div>
       <Footer />
     </form>
