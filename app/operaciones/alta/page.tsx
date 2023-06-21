@@ -21,6 +21,8 @@ async function createAcount(data: FormData) {
     throw new Error("Failed to validate")
   }
 
+  const date = new Date()
+
   //object account
   const newAccount : Account = {
     numero_cuenta: randomAccountNumber(),
@@ -28,7 +30,8 @@ async function createAcount(data: FormData) {
     inversiones: 0,
     nombre: name,
     apellido_paterno: first_surname,
-    apellido_materno: second_surname
+    apellido_materno: second_surname,
+    fecha_apertura: date.toLocaleString()
   }
 
   const client = await clientPromise

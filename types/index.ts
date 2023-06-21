@@ -23,7 +23,7 @@ export interface Account {
   apellido_paterno: string,
   apellido_materno: string,
   fecha_apertura: string,
-  fecha_clausura: string
+  fecha_clausura?: string
 }
 
 export interface Movement {
