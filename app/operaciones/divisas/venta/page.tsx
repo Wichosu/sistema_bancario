@@ -3,12 +3,19 @@ import clientPromise from "@/lib/mongodb";
 import { MovementCoinExchange, CoinExchangeModes } from "@/types";
 import CoinExchange from "@/components/CoinExchange";
 import { isAuth } from "@/lib/isAuth";
+import { getWindowNumber } from "@/lib/getWindowNumber";
 
 async function createMovement(movement: MovementCoinExchange) {
   "use server"
   try {
     const client = await clientPromise
-    client.db("Banco").collection("Movimiento_Divisa").insertOne(movement)
+
+    const movement_w_window: MovementCoinExchange = {
+      ...movement,
+      ventanilla: getWindowNumber()
+    }
+
+    client.db("Banco").collection("Movimiento_Divisa").insertOne(movement_w_window)
   } catch(e) {
     console.log(e)
   }

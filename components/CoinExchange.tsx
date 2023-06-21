@@ -4,7 +4,6 @@ import { useState, useRef } from "react"
 import { coins } from "@/lib/coins"
 import { MovementCoinExchange, CoinExchangeModes } from "@/types"
 import { redirect } from "next/navigation"
-import { getWindowNumber } from "@/lib/getWindowNumber"
 
 interface Props {
   createMovement: (movement: MovementCoinExchange) => void
@@ -54,7 +53,6 @@ export default function CoinExchange({ createMovement, mode } : Props ) {
       monedaSalida: coinOut,
       cantidadSalida: exchange.toFixed(2).toString(),
       fecha: date.toLocaleString(),
-      ventanilla: getWindowNumber()
     }
 
     createMovement(movement)

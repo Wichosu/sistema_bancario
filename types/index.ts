@@ -40,5 +40,5 @@ export interface MovementCoinExchange {
   monedaSalida: string,
   cantidadSalida: string,
   fecha: string,
-  ventanilla: string
+  ventanilla?: string
 }
