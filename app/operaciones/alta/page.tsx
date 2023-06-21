@@ -35,7 +35,7 @@ async function createAcount(data: FormData) {
 
   client.db("Banco").collection("Cuenta").insertOne(newAccount)
 
-  redirect("/operaciones/alta")
+  redirect("/menu")
 }
 
 export default function Page() {

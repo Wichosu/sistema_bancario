@@ -57,7 +57,7 @@ export default function CoinExchange({ createMovement, mode } : Props ) {
 
     createMovement(movement)
 
-    redirect('/')
+    redirect('/menu')
   }
 
   return (

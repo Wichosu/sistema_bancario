@@ -45,7 +45,7 @@ async function handleForm(data : FormData) {
     console.log(e)
   }
 
-  redirect('/')
+  redirect('/menu')
 }
 
 export default function Page(){
