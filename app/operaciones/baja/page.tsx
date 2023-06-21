@@ -6,6 +6,7 @@ import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
 import { Movement } from "@/types"
 import { isAuth } from "@/lib/isAuth"
+import { getWindowNumber } from "@/lib/getWindowNumber"
 
 async function dropAccount(data: FormData) {
   "use server"
@@ -31,7 +32,8 @@ async function dropAccount(data: FormData) {
       numero_cuenta: account_number,
       tipo: "Baja",
       cantidad: account?.fondos,
-      fecha: date.toLocaleString()
+      fecha: date.toLocaleString(),
+      ventanilla: getWindowNumber()
     }
 
     client.db("Banco").collection("Cuenta").deleteOne({ numero_cuenta: account_number})
