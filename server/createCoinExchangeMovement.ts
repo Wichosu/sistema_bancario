@@ -1,14 +1,14 @@
-import { MovementCoinExchange } from "@/types"
+import { IMovementCoinExchange } from "@/types"
 import clientPromise from "@/lib/mongodb"
 import { getWindowNumber } from "@/lib/getWindowNumber"
 import { DB, Collections } from "@/types"
 
-export async function createMovement(movement: MovementCoinExchange) {
+export async function createMovement(movement: IMovementCoinExchange) {
   "use server"
   try {
     const client = await clientPromise
 
-    const movement_w_window: MovementCoinExchange = {
+    const movement_w_window: IMovementCoinExchange = {
       ...movement,
       ventanilla: getWindowNumber()
     }
