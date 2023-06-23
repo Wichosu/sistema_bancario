@@ -1,4 +1,4 @@
-import { Movement, DB, Collections} from "@/types";
+import { IMovement, DB, Collections} from "@/types";
 import { getWindowNumber } from "./getWindowNumber";
 import { MongoClient } from "mongodb";
 
@@ -10,7 +10,7 @@ export function createMovement(
 ): void {
   const date = new Date()
 
-  const movement:Movement = {
+  const movement:IMovement = {
     numero_cuenta: account_number,
     tipo: type,
     cantidad: amount,
