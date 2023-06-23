@@ -2,7 +2,7 @@ import { IMovement, IMovementCoinExchange } from "@/types"
 
 export function RowMovement({ tipo, cantidad, fecha, numero_cuenta, ventanilla }: IMovement) {
   return (
-    <tr>
+    <tr className="capitalize">
       <td>{ tipo }</td>
       <td>${ cantidad }</td>
       <td>{ fecha }</td>
@@ -21,7 +21,7 @@ export function RowMovementCoinExchange({
   ventanilla
 }: IMovementCoinExchange) {
   return (
-    <tr>
+    <tr className="capitalize">
       <td>{ monedaEntrada }</td>
       <td>${ cantidadEntrada }</td>
       <td>{ monedaSalida }</td>
