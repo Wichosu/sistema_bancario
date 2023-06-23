@@ -38,6 +38,15 @@ export enum Movement {
   Ventanilla = "ventanilla",
 }
 
+export enum MovementCoinExchange {
+  MonedaEntrada = "moneda recibida",
+  CantidadEntrada = "cantidad recibida",
+  MonedaSalida = "moneda entregada",
+  CantidadSalida = "cantidad entregada",
+  Fecha = "fecha",
+  Ventanilla = "ventanilla"
+}
+
 export interface Account {
   numero_cuenta: string,
   fondos: number,
@@ -57,7 +66,7 @@ export interface IMovement {
   ventanilla: string
 }
 
-export interface MovementCoinExchange {
+export interface IMovementCoinExchange {
   monedaEntrada: string,
   cantidadEntrada: string,
   monedaSalida: string,
