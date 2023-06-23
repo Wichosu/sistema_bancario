@@ -4,9 +4,10 @@ import Footer from "@/components/Footer"
 import { getBalance } from "@/server/getBalance"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
-import { Movement } from "@/types"
+import { Movement, Operation } from "@/types"
 import { isAuth } from "@/lib/isAuth"
 import { getWindowNumber } from "@/lib/getWindowNumber"
+import { createMovement } from "@/lib/Movements"
 
 async function dropAccount(data: FormData) {
   "use server"
@@ -26,18 +27,9 @@ async function dropAccount(data: FormData) {
       .collection("Cuenta")
       .findOne({ numero_cuenta: account_number})
 
-    const date = new Date()
-
-    const movement:Movement = {
-      numero_cuenta: account_number,
-      tipo: "Baja",
-      cantidad: account?.fondos,
-      fecha: date.toLocaleString(),
-      ventanilla: getWindowNumber()
-    }
-
     client.db("Banco").collection("Cuenta").deleteOne({ numero_cuenta: account_number})
-    client.db("Banco").collection("Movimiento").insertOne(movement)
+
+    createMovement(client, account_number, Operation.Baja, account?.fondos)
   } catch(e) {
     console.log(e)
   }

@@ -1,18 +1,30 @@
-export type Operation = 
-  |'deposito' 
-  | 'retiro' 
-  | 'divisas' 
-  | 'inversiones' 
-  | 'actividad'
-  | 'alta'
-  | 'baja'
-  | 'venta'
-  | 'compra'
-  | 'salir'
+export enum Operation {
+  Deposito = "deposito",
+  Retiro = "retiro",
+  Divisas = "divisas",
+  Inversiones = "inversiones",
+  Actividad = "actividad",
+  Alta = "alta",
+  Baja = "baja",
+  Venta = "venta",
+  Compra = "compra",
+  Salir = "salir"
+}
 
 export enum CoinExchangeModes {
   Purchase = "purchase",
   Sell = "sell"
+}
+
+export enum DB {
+  Banco = "Banco"
+}
+
+export enum Collections {
+  Cuenta = "Cuenta",
+  Movimiento = "Movimiento",
+  Movimiento_Divisa = "Movimiento_Divisa",
+  Ventanilla = "Ventanilla"
 }
 
 export interface Account {

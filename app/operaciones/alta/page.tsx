@@ -3,9 +3,10 @@ import Input from "@/components/Input";
 import Subtitle from "@/components/Subtitle";
 import { redirect } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
-import { Account } from "@/types";
+import { Account, Operation } from "@/types";
 import { randomAccountNumber } from "@/lib/randomAccount";
 import { isAuth } from "@/lib/isAuth";
+import { createMovement } from "@/lib/Movements";
 
 async function createAcount(data: FormData) {
   "use server"
@@ -21,22 +22,29 @@ async function createAcount(data: FormData) {
     throw new Error("Failed to validate")
   }
 
-  const date = new Date()
+  try{
+    const date = new Date()
+    const account_number = randomAccountNumber()
 
-  //object account
-  const newAccount : Account = {
-    numero_cuenta: randomAccountNumber(),
-    fondos: +amount,
-    inversiones: 0,
-    nombre: name,
-    apellido_paterno: first_surname,
-    apellido_materno: second_surname,
-    fecha_apertura: date.toLocaleString()
+    //object account
+    const newAccount : Account = {
+      numero_cuenta: account_number,
+      fondos: +amount,
+      inversiones: 0,
+      nombre: name,
+      apellido_paterno: first_surname,
+      apellido_materno: second_surname,
+      fecha_apertura: date.toLocaleString()
+    }
+
+    const client = await clientPromise
+
+    client.db("Banco").collection("Cuenta").insertOne(newAccount)
+
+    createMovement(client, account_number, Operation.Alta, amount)
+  } catch(e) {
+    console.error(e)
   }
-
-  const client = await clientPromise
-
-  client.db("Banco").collection("Cuenta").insertOne(newAccount)
 
   redirect("/menu")
 }

@@ -30,7 +30,7 @@ export default function ActividadClientComponent(){
       <Subtitle subtitle="Actividad" />
       <div className="mb-8">
         <Link 
-          href={'/'} 
+          href={'/menu'} 
           className="bg-neutral-300 px-8 py-2 rounded"
         >
           Regresar
