@@ -2,11 +2,11 @@
 import Footer from "./Footer"
 import { useState, useRef } from "react"
 import { coins } from "@/lib/coins"
-import { MovementCoinExchange, CoinExchangeModes } from "@/types"
+import { IMovementCoinExchange, CoinExchangeModes } from "@/types"
 import { redirect } from "next/navigation"
 
 interface Props {
-  createMovement: (movement: MovementCoinExchange) => void
+  createMovement: (movement: IMovementCoinExchange) => void
   mode: CoinExchangeModes
 }
 
@@ -47,7 +47,7 @@ export default function CoinExchange({ createMovement, mode } : Props ) {
 
     const date = new Date()
     
-    const movement: MovementCoinExchange = {
+    const movement: IMovementCoinExchange = {
       monedaEntrada: coinIn,
       cantidadEntrada: amount.current.value,
       monedaSalida: coinOut,
