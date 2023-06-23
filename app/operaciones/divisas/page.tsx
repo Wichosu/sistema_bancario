@@ -1,11 +1,8 @@
 import OperationCard from "@/components/OperationCard"
 import { isAuth } from "@/lib/isAuth"
-import { Operation } from "@/types"
+import { CoinExchangeOperations } from "@/types"
 
-const operations : Operation[] = [
-  'compra',
-  'venta'
-]
+const operations = Object.values(CoinExchangeOperations)
 
 export default async function Home() {
   isAuth()

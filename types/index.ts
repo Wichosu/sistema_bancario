@@ -6,9 +6,12 @@ export enum Operation {
   Actividad = "actividad",
   Alta = "alta",
   Baja = "baja",
-  Venta = "venta",
-  Compra = "compra",
   Salir = "salir"
+}
+
+export enum CoinExchangeOperations {
+  Compra = "compra",
+  Venta = "venta"
 }
 
 export enum CoinExchangeModes {

@@ -1,8 +1,8 @@
-import { Operation } from "@/types"
+import { CoinExchangeOperations, Operation } from "@/types"
 import Link from "next/link"
 
 interface Props {
-  operation: Operation
+  operation: Operation | CoinExchangeOperations
   route?: string
 }
 
