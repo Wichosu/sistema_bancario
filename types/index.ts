@@ -30,6 +30,14 @@ export enum Collections {
   Ventanilla = "Ventanilla"
 }
 
+export enum Movement {
+  Tipo = "tipo",
+  Cantidad = "cantidad",
+  Fecha = "fecha",
+  NumeroCuenta = "numero de cuenta",
+  Ventanilla = "ventanilla",
+}
+
 export interface Account {
   numero_cuenta: string,
   fondos: number,
@@ -41,7 +49,7 @@ export interface Account {
   fecha_clausura?: string
 }
 
-export interface Movement {
+export interface IMovement {
   numero_cuenta: string,
   tipo: string,
   cantidad: string,
