@@ -41,7 +41,7 @@ export default function Page() {
 
   return (
     <>
-      <Subtitle subtitle="Alta de Cuenta" />
+      <Subtitle subtitle="Baja de Cuenta" />
       <form action={dropAccount} method="post" className="grid gap-8">
         <SearchAccount getBalance={getBalance} />
         <Footer />
