@@ -3,7 +3,7 @@ import Input from "@/components/Input";
 import Subtitle from "@/components/Subtitle";
 import { redirect } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
-import { Account, Operation } from "@/types";
+import { Account, Collections, Operation, DB } from "@/types";
 import { randomAccountNumber } from "@/lib/randomAccount";
 import { isAuth } from "@/lib/isAuth";
 import { createMovement } from "@/lib/Movements";
@@ -39,7 +39,7 @@ async function createAcount(data: FormData) {
 
     const client = await clientPromise
 
-    client.db("Banco").collection("Cuenta").insertOne(newAccount)
+    client.db(DB.Banco).collection(Collections.Cuenta).insertOne(newAccount)
 
     createMovement(client, account_number, Operation.Alta, amount)
   } catch(e) {

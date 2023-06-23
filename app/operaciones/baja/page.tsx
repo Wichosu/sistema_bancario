@@ -4,9 +4,8 @@ import Footer from "@/components/Footer"
 import { getBalance } from "@/server/getBalance"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
-import { Movement, Operation } from "@/types"
+import { Operation, DB, Collections } from "@/types"
 import { isAuth } from "@/lib/isAuth"
-import { getWindowNumber } from "@/lib/getWindowNumber"
 import { createMovement } from "@/lib/Movements"
 
 async function dropAccount(data: FormData) {
@@ -23,11 +22,11 @@ async function dropAccount(data: FormData) {
     const account_number = `2222 4545 80${first} ${second}`
 
     const account = await client
-      .db("Banco")
-      .collection("Cuenta")
+      .db(DB.Banco)
+      .collection(Collections.Cuenta)
       .findOne({ numero_cuenta: account_number})
 
-    client.db("Banco").collection("Cuenta").deleteOne({ numero_cuenta: account_number})
+    client.db(DB.Banco).collection(Collections.Cuenta).deleteOne({ numero_cuenta: account_number})
 
     createMovement(client, account_number, Operation.Baja, account?.fondos)
   } catch(e) {

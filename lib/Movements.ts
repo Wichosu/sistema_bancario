@@ -1,4 +1,4 @@
-import { Movement, MovementCoinExchange } from "@/types";
+import { Movement, DB, Collections} from "@/types";
 import { getWindowNumber } from "./getWindowNumber";
 import { MongoClient } from "mongodb";
 
@@ -18,5 +18,5 @@ export function createMovement(
     ventanilla: getWindowNumber()
   } 
 
-  client.db("Banco").collection("Movimiento").insertOne(movement)
+  client.db(DB.Banco).collection(Collections.Movimiento).insertOne(movement)
 }

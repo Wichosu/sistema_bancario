@@ -4,8 +4,6 @@ import CoinExchange from "@/components/CoinExchange";
 import { isAuth } from "@/lib/isAuth";
 import { createMovement } from "@/server/createCoinExchangeMovement";
 
-
-
 export default function Page(){
   isAuth()
 

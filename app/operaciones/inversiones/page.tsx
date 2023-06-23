@@ -3,7 +3,7 @@ import Input from "@/components/Input"
 import Footer from "@/components/Footer"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
-import { Operation } from "@/types"
+import { Operation, DB, Collections } from "@/types"
 import SearchAccount from "@/components/SearchAccount"
 import { getBalance } from "@/server/getBalance"
 import { isAuth } from "@/lib/isAuth"
@@ -22,9 +22,9 @@ async function handleForm(data : FormData) {
 
   try{
     const account = `2222 4545 80${first} ${second}`
-    const prev = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account })
+    const prev = await client.db(DB.Banco).collection(Collections.Cuenta).findOne({ numero_cuenta: account })
 
-    client.db("Banco").collection("Cuenta").updateOne(
+    client.db(DB.Banco).collection(Collections.Cuenta).updateOne(
       { numero_cuenta: account },
       { $set: { inversiones: (prev?.inversiones + +amount) }}
     )
