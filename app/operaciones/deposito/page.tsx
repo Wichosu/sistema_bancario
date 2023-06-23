@@ -3,11 +3,11 @@ import Input from "@/components/Input";
 import Subtitle from "@/components/Subtitle";
 import clientPromise from "@/lib/mongodb";
 import { redirect } from "next/navigation";
-import { Movement } from "@/types";
+import { Operation } from "@/types";
 import SearchAccount from "@/components/SearchAccount";
 import { getBalance } from "@/server/getBalance";
 import { isAuth } from "@/lib/isAuth";
-import { getWindowNumber } from "@/lib/getWindowNumber";
+import { createMovement } from "@/lib/Movements";
 
 async function handleForm(data : FormData) {
   "use server"
@@ -30,17 +30,7 @@ async function handleForm(data : FormData) {
       { $set: { fondos: (+amount + prev?.fondos) }}
     )
 
-    const date = new Date()
-
-    const movement:Movement = {
-      numero_cuenta: account,
-      tipo: "Deposito",
-      cantidad: amount,
-      fecha: date.toLocaleString(),
-      ventanilla: getWindowNumber()
-    }
-
-    client.db("Banco").collection("Movimiento").insertOne(movement)
+    createMovement(client, account, Operation.Deposito, amount)
   } catch(e) {
     console.log(e)
   }

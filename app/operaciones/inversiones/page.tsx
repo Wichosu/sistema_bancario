@@ -3,11 +3,11 @@ import Input from "@/components/Input"
 import Footer from "@/components/Footer"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
-import { Movement } from "@/types"
+import { Operation } from "@/types"
 import SearchAccount from "@/components/SearchAccount"
 import { getBalance } from "@/server/getBalance"
 import { isAuth } from "@/lib/isAuth"
-import { getWindowNumber } from "@/lib/getWindowNumber"
+import { createMovement } from "@/lib/Movements"
 
 async function handleForm(data : FormData) {
   "use server"
@@ -21,26 +21,15 @@ async function handleForm(data : FormData) {
   }
 
   try{
-
     const account = `2222 4545 80${first} ${second}`
     const prev = await client.db("Banco").collection("Cuenta").findOne({ numero_cuenta: account })
-    
+
     client.db("Banco").collection("Cuenta").updateOne(
       { numero_cuenta: account },
       { $set: { inversiones: (prev?.inversiones + +amount) }}
     )
 
-    const date = new Date()
-
-    const movement:Movement = {
-      numero_cuenta: account,
-      tipo: "Inversion",
-      cantidad: amount,
-      fecha: date.toLocaleString(),
-      ventanilla: getWindowNumber()
-    }
-
-    client.db("Banco").collection("Movimiento").insertOne(movement)
+    createMovement(client, account, Operation.Inversiones, amount)
   } catch(e) {
     console.log(e)
   }
