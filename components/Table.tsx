@@ -9,7 +9,7 @@ interface Props {
 
 export default function Table({ caption, headers, children }: Props) {
   return (
-    <div className="mt-8 w-fit max-h-96 overflow-scroll">
+    <div className="my-8 w-fit max-h-96 overflow-scroll">
       <table className="table-auto border-collapse">
         <caption 
           className="border border-slate-400 bg-slate-300 uppercase text-xl text-neutral-800 
