@@ -9,6 +9,10 @@ export enum Operation {
   Salir = "salir"
 }
 
+export enum AdminOperation {
+  RegistrarEmpleado = "Registrar Empleado"
+}
+
 export enum CoinExchangeOperations {
   Compra = "compra",
   Venta = "venta"
@@ -27,7 +31,9 @@ export enum Collections {
   Cuenta = "Cuenta",
   Movimiento = "Movimiento",
   Movimiento_Divisa = "Movimiento_Divisa",
-  Ventanilla = "Ventanilla"
+  Ventanilla = "Ventanilla",
+  Acceso = "Acceso",
+  Empleado = "Empleado"
 }
 
 export enum Movement {
@@ -45,6 +51,11 @@ export enum MovementCoinExchange {
   CantidadSalida = "cantidad entregada",
   Fecha = "fecha",
   Ventanilla = "ventanilla"
+}
+
+export enum Roles {
+  Admin = "ADMIN",
+  Ventanilla = "VENTANILLA"
 }
 
 export interface Account {
