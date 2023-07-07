@@ -1,6 +1,6 @@
 "use server"
 import clientPromise from "@/lib/mongodb"
-import { DB, Collections } from "@/types"
+import { DB, Collections, Roles } from "@/types"
 
 export async function fetchWindow() {
   try {
@@ -16,7 +16,7 @@ export async function fetchWindow() {
 export async function fetchEmploye() {
   try {
     const client = await clientPromise
-    const employes = client.db(DB.Banco).collection(Collections.Empleado).find({}, {projection:{ _id: 0}})
+    const employes = client.db(DB.Banco).collection(Collections.Empleado).find({ rol: Roles.Ventanilla }, {projection:{ _id: 0}})
 
     return await employes.toArray()
   } catch(e) {
