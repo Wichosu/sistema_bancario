@@ -11,6 +11,8 @@ export enum Operation {
 
 export enum AdminOperation {
   RegistrarEmpleado = "Registrar Empleado",
+  CrearVentanilla = "Crear Ventanilla",
+  AsignarEmpleado = "Asignar Empleado",
   Salir = "salir"
 }
 

@@ -1,5 +1,5 @@
 import { IMovement, DB, Collections} from "@/types";
-import { getWindowNumber } from "./getEmployeCode";
+import { getEmployeCode } from "./getEmployeCode";
 import { MongoClient } from "mongodb";
 
 export function createMovement(
@@ -15,7 +15,7 @@ export function createMovement(
     tipo: type,
     cantidad: amount,
     fecha: date.toLocaleString(),
-    ventanilla: getWindowNumber()
+    ventanilla: getEmployeCode()
   } 
 
   client.db(DB.Banco).collection(Collections.Movimiento).insertOne(movement)
