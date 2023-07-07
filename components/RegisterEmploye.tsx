@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import { Roles } from "@/types";
-import { IEmploye } from "@/types";
+import { IEmploye, IAccess } from "@/types";
 import { createEmploye } from "@/server/createEmploye";
 
 export default function RegisterEmploye() {
@@ -63,8 +63,12 @@ export default function RegisterEmploye() {
       rol: role.toUpperCase()
     }
 
-    createEmploye(employe)
+    const access: IAccess = {
+      clave: code,
+      password: password
+    }
 
+    createEmploye(employe, access)
   }
 
   return (

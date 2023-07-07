@@ -69,6 +69,11 @@ export interface IEmploye {
   rol: string
 }
 
+export interface IAccess {
+  clave: string,
+  password: string
+}
+
 export interface Account {
   numero_cuenta: string,
   fondos: number,
