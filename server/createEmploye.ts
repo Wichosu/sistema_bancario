@@ -13,6 +13,4 @@ export async function createEmploye(employe: IEmploye, access: IAccess) {
   } catch(e) {
     throw new Error("error")
   }
-
-  redirect('/admin-menu')
 }

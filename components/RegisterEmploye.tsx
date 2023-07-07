@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { Roles } from "@/types";
 import { IEmploye, IAccess } from "@/types";
 import { createEmploye } from "@/server/createEmploye";
+import { redirect } from "next/navigation";
 
 export default function RegisterEmploye() {
   const name = useRef<HTMLInputElement>(null)
@@ -69,6 +70,9 @@ export default function RegisterEmploye() {
     }
 
     createEmploye(employe, access)
+
+
+    redirect('/menu-admin')
   }
 
   return (
