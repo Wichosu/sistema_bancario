@@ -1,5 +1,5 @@
 import { IMovement, DB, Collections} from "@/types";
-import { getWindowNumber } from "./getWindowNumber";
+import { getWindowNumber } from "./getEmployeCode";
 import { MongoClient } from "mongodb";
 
 export function createMovement(

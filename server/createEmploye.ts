@@ -1,7 +1,6 @@
 "use server"
 import clientPromise from "@/lib/mongodb";
 import { DB, Collections, IEmploye, IAccess } from "@/types";
-import { redirect } from "next/navigation";
 
 export async function createEmploye(employe: IEmploye, access: IAccess) {
   try {

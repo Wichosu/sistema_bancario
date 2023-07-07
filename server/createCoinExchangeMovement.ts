@@ -1,6 +1,6 @@
 import { IMovementCoinExchange } from "@/types"
 import clientPromise from "@/lib/mongodb"
-import { getWindowNumber } from "@/lib/getWindowNumber"
+import { getWindowNumber } from "@/lib/getEmployeCode"
 import { DB, Collections } from "@/types"
 
 export async function createMovement(movement: IMovementCoinExchange) {
