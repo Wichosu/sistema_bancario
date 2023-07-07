@@ -1,6 +1,6 @@
 import { IMovementCoinExchange } from "@/types"
 import clientPromise from "@/lib/mongodb"
-import { getWindowNumber } from "@/lib/getEmployeCode"
+import { getEmployeCode } from "@/lib/getEmployeCode"
 import { DB, Collections } from "@/types"
 
 export async function createMovement(movement: IMovementCoinExchange) {
@@ -10,7 +10,7 @@ export async function createMovement(movement: IMovementCoinExchange) {
 
     const movement_w_window: IMovementCoinExchange = {
       ...movement,
-      ventanilla: getWindowNumber()
+      ventanilla: getEmployeCode()
     }
 
     client.db(DB.Banco).collection(Collections.Movimiento_Divisa).insertOne(movement_w_window)
