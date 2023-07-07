@@ -1,6 +1,6 @@
 "use client"
 import Footer from "./Footer"
-import { fetchWindow, fetchEmploye } from "@/server/assignEmploye"
+import { fetchWindow, fetchEmploye, updateWindow } from "@/server/assignEmploye"
 import { useEffect, useState, useRef } from "react"
 
 export default function AssignEmploye() {
@@ -8,11 +8,18 @@ export default function AssignEmploye() {
   const [employes, setEmployes] = useState<any[]>()
   const [employe, setEmploye] = useState<any>()
   const code = useRef<HTMLSelectElement>(null)
+  const window = useRef<HTMLSelectElement>(null)
 
   async function getEmploye() {
     const findEmploye = employes?.find((employe) => employe.clave === code.current?.value)
 
     setEmploye(() => findEmploye)
+  }
+
+  function handleForm() {
+    if(window.current?.value && employe?.clave){
+      updateWindow(window.current.value, employe.clave)
+    }
   }
 
   useEffect(() => {
@@ -28,10 +35,10 @@ export default function AssignEmploye() {
   }, [])
 
   return (
-    <form className="flex flex-col gap-8 mb-8">
+    <form action={handleForm} className="flex flex-col gap-8 mb-8">
       <div className="flex gap-16">
         <label>Ventanilla</label>
-        <select className="w-fit px-4">
+        <select className="w-fit px-4" ref={window}>
           {
             windows?.map((window: any, key: any) => (
               <option key={key}>{ window.numero }</option>
@@ -40,6 +47,7 @@ export default function AssignEmploye() {
         </select>
         <label>Empleado</label>
         <select className="w-fit px-4" ref={code} onChange={getEmploye}>
+          <option>Empleado</option>
           {
             employes?.map((employe: any, key: any) => (
               <option key={key} value={employe.clave}>{ employe.nombre }</option>

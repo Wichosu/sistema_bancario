@@ -28,9 +28,22 @@ export async function fetchOneEmploye(code: string) {
   try {
     const client = await clientPromise
     const employe = client.db(DB.Banco).collection(Collections.Empleado).findOne({ clave: code})
-    
+
     return employe
   } catch(e) {
     throw new Error('Error fetch one employe')
+  }
+}
+
+export async function updateWindow(windowNumber: string, code: string) {
+  try {
+    const client = await clientPromise
+
+    client.db(DB.Banco).collection(Collections.Ventanilla).updateOne(
+      { numero: windowNumber },
+      { $set: { clave: code } }
+    )
+  } catch(e) {
+    throw new Error('Erro updating window')
   }
 }
