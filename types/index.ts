@@ -10,7 +10,8 @@ export enum Operation {
 }
 
 export enum AdminOperation {
-  RegistrarEmpleado = "Registrar Empleado"
+  RegistrarEmpleado = "Registrar Empleado",
+  Salir = "salir"
 }
 
 export enum CoinExchangeOperations {
@@ -56,6 +57,16 @@ export enum MovementCoinExchange {
 export enum Roles {
   Admin = "ADMIN",
   Ventanilla = "VENTANILLA"
+}
+
+export interface IEmploye {
+  nombre: string,
+  apellido_paterno: string,
+  apellido_materno: string,
+  fecha_ingreso: string,
+  fecha_egreso: string,
+  clave: string,
+  rol: string
 }
 
 export interface Account {
