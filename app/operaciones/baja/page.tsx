@@ -4,7 +4,7 @@ import Footer from "@/components/Footer"
 import { getBalance } from "@/server/getBalance"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
-import { Operation, DB, Collections } from "@/types"
+import { Operation, DB, Collections, AccountStates } from "@/types"
 import { isAuth } from "@/lib/isAuth"
 import { createMovement } from "@/lib/Movements"
 
@@ -25,8 +25,11 @@ async function dropAccount(data: FormData) {
       .db(DB.Banco)
       .collection(Collections.Cuenta)
       .findOne({ numero_cuenta: account_number})
-
-    client.db(DB.Banco).collection(Collections.Cuenta).deleteOne({ numero_cuenta: account_number})
+      //Make an enum for the states, check alta page as weljl
+    client.db(DB.Banco).collection(Collections.Cuenta).updateOne(
+      { numero_cuenta: account_number},
+      { $set: { estado: AccountStates.Close }}
+    )
 
     createMovement(client, account_number, Operation.Baja, account?.fondos)
   } catch(e) {

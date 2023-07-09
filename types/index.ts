@@ -61,6 +61,11 @@ export enum Roles {
   Ventanilla = "VENTANILLA"
 }
 
+export enum AccountStates {
+  Active = "ACTIVA",
+  Close = "CERRADA"
+}
+
 export interface IEmploye {
   nombre: string,
   apellido_paterno: string,
@@ -84,7 +89,8 @@ export interface Account {
   apellido_paterno: string,
   apellido_materno: string,
   fecha_apertura: string,
-  fecha_clausura?: string
+  fecha_clausura?: string,
+  estado: string
 }
 
 export interface IMovement {
