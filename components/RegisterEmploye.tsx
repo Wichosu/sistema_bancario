@@ -142,12 +142,12 @@ export default function RegisterEmploye() {
       <div className="mt-12 flex gap-16">
         <a 
           href='/menu-admin' 
-          className="border-none bg-red-500 rounded py-2 px-8 text-neutral-100"
+          className="border-none bg-red-500 rounded py-2 px-8 text-neutral-100 hover:bg-red-600"
         >
           Regresar
         </a>
         <button
-          className="border-none bg-green-500 rounded py-2 px-8 text-neutral-100"
+          className="border-none bg-green-500 rounded py-2 px-8 text-neutral-100 hover:bg-green-600"
         >
           Registrar
         </button>

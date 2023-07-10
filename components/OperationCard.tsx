@@ -15,7 +15,7 @@ export default function OperationCard({ operation, route } : Props) {
     <Link 
       href={href_route}
       className="px-4 py-12 rounded bg-neutral-200 text-neutral-800 text-center uppercase
-      cursor-pointer shadow-sm"
+      cursor-pointer shadow-sm hover:bg-neutral-300"
     >
       { operation }
     </Link>

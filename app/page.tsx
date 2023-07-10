@@ -58,7 +58,11 @@ export default function Page() {
       <form action={login} className="grid justify-center gap-6">
         <Input label="Clave" name="code" /> 
         <Input label="Contraseña" type="password" name="password" />
-        <button className="px-4 py-2 bg-blue-300 rounded">Acceder</button>
+        <button 
+          className="px-4 py-2 bg-blue-300 rounded hover:bg-blue-400"
+        >
+          Acceder
+        </button>
       </form>
     </div>
   )
