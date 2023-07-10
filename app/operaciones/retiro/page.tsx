@@ -3,7 +3,7 @@ import Input from "@/components/Input"
 import Footer from "@/components/Footer"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
-import { Collections, DB, Operation } from "@/types"
+import { AccountStates, Collections, DB, Operation } from "@/types"
 import SearchAccount from "@/components/SearchAccount"
 import { getBalance } from "@/server/getBalance"
 import { isAuth } from "@/lib/isAuth"
@@ -25,10 +25,10 @@ async function handleForm(data : FormData) {
     const account = `2222 4545 80${first} ${second}`
     const prev = await client.db(DB.Banco).collection(Collections.Cuenta).findOne({ numero_cuenta: account })
     
-    if(prev?.fondos >= +amount){
+    if(prev?.fondos >= +amount && prev?.estado === AccountStates.Active){
       client.db(DB.Banco).collection(Collections.Cuenta).updateOne(
         { numero_cuenta: account },
-        { $set: { fondos: (prev?.fondos - +amount )}}
+        { $set: { fondos: (prev?.fondos - +amount ).toFixed(2) }}
       )
 
       createMovement(client, account, Operation.Retiro, amount)

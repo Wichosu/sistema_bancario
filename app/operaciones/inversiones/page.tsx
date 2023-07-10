@@ -3,7 +3,7 @@ import Input from "@/components/Input"
 import Footer from "@/components/Footer"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
-import { Operation, DB, Collections } from "@/types"
+import { Operation, DB, Collections, AccountStates } from "@/types"
 import SearchAccount from "@/components/SearchAccount"
 import { getBalance } from "@/server/getBalance"
 import { isAuth } from "@/lib/isAuth"
@@ -24,12 +24,14 @@ async function handleForm(data : FormData) {
     const account = `2222 4545 80${first} ${second}`
     const prev = await client.db(DB.Banco).collection(Collections.Cuenta).findOne({ numero_cuenta: account })
 
-    client.db(DB.Banco).collection(Collections.Cuenta).updateOne(
-      { numero_cuenta: account },
-      { $set: { inversiones: (prev?.inversiones + +amount) }}
-    )
+    if(prev?.estado === AccountStates.Active) {
+      client.db(DB.Banco).collection(Collections.Cuenta).updateOne(
+        { numero_cuenta: account },
+        { $set: { inversiones: (prev?.inversiones + +amount).toFixed(2) }}
+      )
 
-    createMovement(client, account, Operation.Inversiones, amount)
+      createMovement(client, account, Operation.Inversiones, amount)
+    }
   } catch(e) {
     console.log(e)
   }

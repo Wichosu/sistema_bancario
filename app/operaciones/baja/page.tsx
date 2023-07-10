@@ -28,7 +28,13 @@ async function dropAccount(data: FormData) {
       //Make an enum for the states, check alta page as weljl
     client.db(DB.Banco).collection(Collections.Cuenta).updateOne(
       { numero_cuenta: account_number},
-      { $set: { estado: AccountStates.Close }}
+      { 
+        $set: { 
+          estado: AccountStates.Close,
+          fondos: 0,
+          inversiones: 0,
+        }
+      }
     )
 
     createMovement(client, account_number, Operation.Baja, account?.fondos)
