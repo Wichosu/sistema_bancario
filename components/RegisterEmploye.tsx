@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition, experimental_useOptimistic as useOptimistic } from "react";
 import { Roles } from "@/types";
 import { IEmploye, IAccess } from "@/types";
 import { createEmploye } from "@/server/createEmploye";
@@ -10,6 +10,7 @@ export default function RegisterEmploye() {
   const firstSurname = useRef<HTMLInputElement>(null)
   const secondSurname = useRef<HTMLInputElement>(null)
   const [code, setCode] = useState<string>('')
+  const [isPending, startTransition] = useTransition()
 
   const createCode = () => {
     const nameValue = name.current?.value.toUpperCase() || ''
@@ -71,12 +72,11 @@ export default function RegisterEmploye() {
 
     createEmploye(employe, access)
 
-
     redirect('/menu-admin')
   }
 
   return (
-    <form action={submitForm} method="POST" className="grid gap-2 mb-8">
+    <form action={(e) => startTransition(() => submitForm(e))} method="POST" className="grid gap-2 mb-8">
       <label htmlFor="name">Nombre</label>
       <input 
         id="name" 

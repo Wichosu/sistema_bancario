@@ -1,6 +1,7 @@
 "use server"
 import clientPromise from "@/lib/mongodb"
 import { DB, Collections, Roles } from "@/types"
+import { redirect } from "next/navigation"
 
 export async function fetchWindow() {
   try {
@@ -46,4 +47,5 @@ export async function updateWindow(windowNumber: string, code: string) {
   } catch(e) {
     throw new Error('Erro updating window')
   }
+
 }

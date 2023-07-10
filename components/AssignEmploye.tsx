@@ -1,7 +1,8 @@
 "use client"
 import Footer from "./Footer"
 import { fetchWindow, fetchEmploye, updateWindow } from "@/server/assignEmploye"
-import { useEffect, useState, useRef } from "react"
+import { redirect } from "next/navigation"
+import { useEffect, useState, useRef, useTransition } from "react"
 
 export default function AssignEmploye() {
   const [windows, setWindows] = useState<any>()
@@ -9,8 +10,9 @@ export default function AssignEmploye() {
   const [employe, setEmploye] = useState<any>()
   const code = useRef<HTMLSelectElement>(null)
   const window = useRef<HTMLSelectElement>(null)
+  let [isPending, startTransition] = useTransition()
 
-  async function getEmploye() {
+  function getEmploye() {
     const findEmploye = employes?.find((employe) => employe.clave === code.current?.value)
 
     setEmploye(() => findEmploye)
@@ -19,6 +21,7 @@ export default function AssignEmploye() {
   function handleForm() {
     if(window.current?.value && employe?.clave){
       updateWindow(window.current.value, employe.clave)
+      redirect('menu-admin')
     }
   }
 
@@ -35,7 +38,7 @@ export default function AssignEmploye() {
   }, [])
 
   return (
-    <form action={handleForm} className="flex flex-col gap-8 mb-8">
+    <form action={() => startTransition(() => handleForm())} className="flex flex-col gap-8 mb-8">
       <div className="flex gap-16">
         <label>Ventanilla</label>
         <select className="w-fit px-4" ref={window}>
