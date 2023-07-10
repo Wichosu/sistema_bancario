@@ -59,7 +59,7 @@ export default function SearchAccount({ getBalance } : Props) {
       </div>
       <div className="flex flex-col gap-2">
         <p>Fondos</p>
-        <p>${ account?.fondos.toFixed(2) }</p>
+        <p>${ account?.fondos }</p>
       </div>
     </div>
   )
