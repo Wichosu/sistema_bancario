@@ -14,7 +14,7 @@ export default async function Home() {
           <OperationCard 
             key={key} 
             operation={operation} 
-            route={`operaciones/divisas/${operation}`} 
+            route={`/operaciones/divisas/${operation}`} 
           />
         ))
       }

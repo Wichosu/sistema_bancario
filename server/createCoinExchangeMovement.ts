@@ -1,10 +1,10 @@
+"use server"
 import { IMovementCoinExchange } from "@/types"
 import clientPromise from "@/lib/mongodb"
 import { getEmployeCode } from "@/lib/getEmployeCode"
 import { DB, Collections } from "@/types"
 
 export async function createMovement(movement: IMovementCoinExchange) {
-  "use server"
   try {
     const client = await clientPromise
 
