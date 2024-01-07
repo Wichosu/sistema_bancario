@@ -4,7 +4,7 @@ import Subtitle from "@/components/Subtitle";
 import { redirect } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
 import { Account, Collections, Operation, DB, AccountStates } from "@/types";
-import { randomAccountNumber } from "@/lib/randomAccount";
+import { randomAccountNumber, randomNip } from "@/lib/randomAccount";
 import { isAuth } from "@/lib/isAuth";
 import { createMovement } from "@/lib/Movements";
 
@@ -35,7 +35,8 @@ async function createAcount(data: FormData) {
       apellido_paterno: first_surname,
       apellido_materno: second_surname,
       fecha_apertura: date.toLocaleString(),
-      estado: AccountStates.Active
+      estado: AccountStates.Active,
+      nip: randomNip()
     }
 
     const client = await clientPromise

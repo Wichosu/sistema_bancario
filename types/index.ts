@@ -90,7 +90,8 @@ export interface Account {
   apellido_materno: string,
   fecha_apertura: string,
   fecha_clausura?: string,
-  estado: string
+  estado: string,
+  nip: string
 }
 
 export interface IMovement {
