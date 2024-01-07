@@ -1,5 +1,6 @@
 import Subtitle from "@/components/Subtitle"
 import Input from "@/components/Input"
+import Login from "@/components/Login"
 import clientPromise from "@/lib/mongodb"
 import { redirect } from "next/navigation"
 import { cookies } from "next/headers"
@@ -23,7 +24,7 @@ async function login(data: FormData) {
     const access = await client.db(DB.Banco).collection(Collections.Acceso).findOne({ clave: code });
 
     if(access?.password !== password) {
-      return
+      return false
     }
 
   } catch(e) {
@@ -55,15 +56,7 @@ export default function Page() {
   return (
     <div className="text-center">
       <Subtitle subtitle="Login" />
-      <form action={login} className="grid justify-center gap-6">
-        <Input label="Clave" name="code" /> 
-        <Input label="Contraseña" type="password" name="password" />
-        <button 
-          className="px-4 py-2 bg-blue-300 rounded hover:bg-blue-400"
-        >
-          Acceder
-        </button>
-      </form>
+      <Login login={login} />
     </div>
   )
 }
