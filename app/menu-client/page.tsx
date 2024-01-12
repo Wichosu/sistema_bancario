@@ -30,17 +30,6 @@ export default async function Page() {
         <p className="font-medium">Fondos:</p>
         <p className="font-bold text-xl">${ account.fondos }</p>
       </section>
-      <section className="w-fit mx-auto my-0 py-4 px-8 flex gap-2">
-        <Link href={'/'} className="border-2 rounded px-8 py-4">
-          <SendToMobile />
-          Transferir a otra cuenta
-        </Link>
-        <div className="border-2 rounded px-8 py-4">
-          <p>
-            Proximamente más...
-          </p>
-        </div>
-      </section>
     </main>
   )
 }
