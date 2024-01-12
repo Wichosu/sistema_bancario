@@ -14,6 +14,9 @@ async function login(data: FormData) {
   //MongoDB client
   const client = await clientPromise
 
+  let isEmployee = false;
+  let isClient = false;
+
   //Check if type of data is correct
   if(typeof code !== "string" || typeof password !== "string") {
     throw new Error("Number or password not string")
@@ -23,8 +26,18 @@ async function login(data: FormData) {
   try {
     const access = await client.db(DB.Banco).collection(Collections.Acceso).findOne({ clave: code });
 
-    if(access?.password !== password) {
+    const access_account = await client.db(DB.Banco).collection(Collections.Cuenta).findOne({ numero_cuenta: code })
+
+    if(access?.password !== password && access_account?.nip !== password) {
       return false
+    }
+
+    if(access?.password != null || access?.password != undefined) {
+      isEmployee = true;
+    }
+
+    if(access_account?.nip != null || access_account?.nip != undefined) {
+      isClient = true;
     }
 
   } catch(e) {
@@ -42,20 +55,29 @@ async function login(data: FormData) {
     expires: expireDate
   })
 
-  //check if user is admin and redirect to admin menu
-  const user = await client.db(DB.Banco).collection(Collections.Empleado).findOne({ clave: code })
+  if(isEmployee) {
 
-  if(user?.rol === Roles.Admin) {
-    redirect('/menu-admin')
-  } else {
-    redirect('/menu')
+    //check if user is admin and redirect to admin menu
+    const user = await client.db(DB.Banco).collection(Collections.Empleado).findOne({ clave: code })
+  
+    if(user?.rol === Roles.Admin) {
+      redirect('/menu-admin')
+    } else {
+      redirect('/menu')
+    }
   }
+
+  if(isClient) {
+    redirect('/menu-client')
+  }
+
+  return false
 }
 
 export default function Page() {
   return (
     <div className="text-center">
-      <Subtitle subtitle="Login" />
+      <Subtitle subtitle="Inicio de sesión" />
       <Login login={login} />
     </div>
   )
