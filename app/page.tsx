@@ -28,7 +28,7 @@ async function login(data: FormData) {
 
     const access_account = await client.db(DB.Banco).collection(Collections.Cuenta).findOne({ numero_cuenta: code })
 
-    if(access?.password !== password && access_account?.nip !== password) {
+    if(access?.password != password && access_account?.nip != password) {
       return false
     }
 
