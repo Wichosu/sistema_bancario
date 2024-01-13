@@ -21,7 +21,7 @@ export default function AssignEmploye() {
   function handleForm() {
     if(window.current?.value && employe?.clave){
       updateWindow(window.current.value, employe.clave)
-      redirect('menu-admin')
+      redirect('/menu-admin')
     }
   }
 
